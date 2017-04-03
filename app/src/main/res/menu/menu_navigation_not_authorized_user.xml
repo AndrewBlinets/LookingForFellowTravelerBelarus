@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/enter_menu_navigation"
+        android:title="@string/enter_mn"
+        android:orderInCategory="1"
+        />
+
+    <item android:id="@+id/registration_menu_navigation"
+        android:title="@string/registration_mn"
+        android:orderInCategory="1"
+        />
+
+
+    <item android:id="@+id/search_menu_navigation"
+        android:title="@string/search_mn"
+        android:orderInCategory="1"
+
+        />
+
+    <item android:id="@+id/exit_menu_navigation"
+        android:title="@string/exit_mn"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_menu_gallery"
+        />
+
+</menu>
