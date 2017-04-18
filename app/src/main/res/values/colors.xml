@@ -3,4 +3,22 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="mainBackground">#E2E2E2</color>
+
+
+    <color name="colorWhite">#e2e2e2</color>
+    <color name="field_enter">#FFF5F5F5</color>
+    <color name="field_date">#FFEAEAED</color>
+    <color name="field_date_text">#FF696969</color>
+    <color name="button_search">#FF0097F5</color>
+    <color name="color_fon">#f0f5fd</color>
+    <color name="fon_main">#CCF5F5F5</color>
+    <color name="enter_start">#FF00437D</color>
+    <color name="button_registration">#FF525252</color>
+    <color name="colorPrimaryFont">#FF525252</color>
+    <color name="color_text_main">#FFE6E6E6</color>
+    <color name="av_registration">#3F51B5</color>
+    <color name="colorTextButtonLogIn">#FFFFFFFF</color>
+
 </resources>

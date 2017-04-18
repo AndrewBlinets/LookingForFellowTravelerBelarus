@@ -1,3 +1,47 @@
 <resources>
-    <string name="app_name">" LookingForFellowTravelerBelarus"</string>
+    <string name="app_name">"Попутчик Беларусь"</string>
+
+    <!-- menu_toolbar -->
+
+    <string name="search_title">Поиск попутчика</string>
+
+    <!-- menu_toolbar navigation -->
+
+    <string name="exit_mn">Выход</string>
+    <string name="settings_mn">Настройки</string>
+    <string name="search_mn">Поиск</string>
+    <string name="add_mn">Добавить</string>
+    <string name="my_route_mn">Мои маршруты</string>
+    <string name="registration_mn">Зарегистрироваться</string>
+    <string name="enter_mn">Войти</string>
+    <string name="i_am_driver_mn">Я водитель</string>
+    <string name="i_am_companion_mn">Я попутчик</string>
+
+    <!-- view navigation -->
+
+    <string name="view_navigation_open">Open</string>
+    <string name="view_navigation_close">Close</string>
+
+    <!-- navigation header -->
+
+    <string name="unautorization_user">Не авторизированный пользователь</string>
+    <string name="set_label">Настройки</string>
+    <string name="set_save_settings">Сохранить</string>
+    <string name="reg_label">Регистрация</string>
+    <string name="reg_registration_reg">Зарегистрироватся</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="search">Поиск</string>
+
+    <!-- search -->
+    <string name="start">Пункт отправления</string>
+    <string name="finish">Пунтк прибытие</string>
+    <string name="startpageText">Обработка данных</string>
+    <string name="loginEnter">Авторизоваться</string>
+    <string name="forgotPassword">Забыли пароль?</string>
+    <string name="email">Адресс электронной почты</string>
+    <string name="password">Пароль</string>
 </resources>
