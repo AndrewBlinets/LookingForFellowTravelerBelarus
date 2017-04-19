@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.fragment.FragmentAutorization;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.fragment.FragmentRegistration;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.fragment.FragmentSearch;
 
 public class MainActivityNotAutorizationUser extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,20 +29,30 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        try {
+            fragmentManager.beginTransaction().replace(R.id.flContent,
+                    (FragmentSearch.class).newInstance()).commit();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.inflateMenu(R.menu.menu_navigation_not_authorized_user);
@@ -68,15 +79,26 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        switch(item.getItemId())
+        {
+            case R.id.search_menu_toolbar:
+            {
+                fragmentClass = FragmentSearch.class;
+                break;
+            }
+        }
 
-        //noinspection SimplifiableIfStatement
-              /*  if (id == R.id.action_settings) {
-                        return true;
-                }*/
+        if(fragmentClass != null) {
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -99,6 +121,12 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
             case R.id.search_menu_navigation:
             {
                 fragmentClass = FragmentSearch.class;
+                break;
+            }
+            case R.id.registration_menu_navigation:
+            {
+                fragmentClass = FragmentRegistration.class;
+                break;
             }
         }
 

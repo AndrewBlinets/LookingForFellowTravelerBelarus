@@ -22,13 +22,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <AutoCompleteTextView
-                    android:id="@+id/editTextStart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/field_date_text"
-                    android:textSize="36sp"
-                    android:hint="@string/start"
-                    android:completionThreshold="1"/>
+                        android:id="@+id/editTextStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/field_date_text"
+                        android:textSize="36sp"
+                        android:hint="@string/start"
+                        android:completionHint="@string/start"
+                        android:completionThreshold="1"/>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
