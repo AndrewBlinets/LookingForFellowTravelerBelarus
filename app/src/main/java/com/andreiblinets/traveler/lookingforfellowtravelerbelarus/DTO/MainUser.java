@@ -1,4 +1,4 @@
-package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
+package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO;
 
 public class MainUser {
 
