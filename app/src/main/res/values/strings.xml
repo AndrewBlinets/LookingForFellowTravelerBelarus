@@ -28,7 +28,7 @@
     <string name="set_label">Настройки</string>
     <string name="set_save_settings">Сохранить</string>
     <string name="reg_label">Регистрация</string>
-    <string name="reg_registration_reg">Зарегистрироватся</string>
+    <string name="reg_registration_reg">Зарегистрироваться</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -38,10 +38,10 @@
 
     <!-- search -->
     <string name="start">Пункт отправления</string>
-    <string name="finish">Пунтк прибытие</string>
+    <string name="finish">Пункт прибытие</string>
     <string name="startpageText">Обработка данных</string>
     <string name="loginEnter">Авторизоваться</string>
     <string name="forgotPassword">Забыли пароль?</string>
-    <string name="email">Адресс электронной почты</string>
+    <string name="email">Адрес электронной почты</string>
     <string name="password">Пароль</string>
 </resources>

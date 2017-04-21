@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO.CountryDTO;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsCountry;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstansCountry;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
 
 import java.util.List;
@@ -21,14 +21,14 @@ public class CountryDataBaseHadler extends SQLiteOpenHelper implements Interfase
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ConstantsCountry.CREATE_COUNTRY_TABLE);
+        db.execSQL(ConstansCountry.CREATE_COUNTRY_TABLE);
         db.beginTransaction();
         dataBaseVerson = ConstantsDataBase.DataBaseVersion;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(ConstantsCountry.DELETE_TABLE);
+        db.execSQL(ConstansCountry.DELETE_TABLE);
         onCreate(db);
     }
 
@@ -36,22 +36,22 @@ public class CountryDataBaseHadler extends SQLiteOpenHelper implements Interfase
     public void create(CountryDTO country) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ConstantsCountry.KEY_NAME, country.getName());
-        values.put(ConstantsCountry.KEY_KOD_CURRENCY, country.getKodCurrency());
-        db.insert(ConstantsCountry.NAME_TABLE_COUNTRY, null, values);
+        values.put(ConstansCountry.KEY_NAME, country.getName());
+        values.put(ConstansCountry.KEY_KOD_CURRENCY, country.getKodCurrency());
+        db.insert(ConstansCountry.NAME_TABLE_COUNTRY, null, values);
         db.close();
     }
 
     @Override
     public CountryDTO getById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(ConstantsCountry.GET_COUNTRY_BY_ID, new String[]{String.valueOf(id)});
+        Cursor cursor = db.rawQuery(ConstansCountry.GET_COUNTRY_BY_ID, new String[]{String.valueOf(id)});
         CountryDTO country = new CountryDTO();
         if(cursor.moveToFirst())
         {
-            int idIndex = cursor.getColumnIndex(ConstantsCountry.KEY_ID);
-            int nameIndex = cursor.getColumnIndex(ConstantsCountry.KEY_NAME);
-            int kodCurrencyIndex = cursor.getColumnIndex(ConstantsCountry.KEY_KOD_CURRENCY);
+            int idIndex = cursor.getColumnIndex(ConstansCountry.KEY_ID);
+            int nameIndex = cursor.getColumnIndex(ConstansCountry.KEY_NAME);
+            int kodCurrencyIndex = cursor.getColumnIndex(ConstansCountry.KEY_KOD_CURRENCY);
             country.setId(cursor.getInt(idIndex));
             country.setName(cursor.getString(nameIndex));
             country.setKodCurrency(cursor.getString(kodCurrencyIndex));
