@@ -1,13 +1,12 @@
-package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO;
+package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
-
-public class RegionDTO {
+public class City {
 
     private long id;
-    private long idCountry;
+    private long idRegion;
     private String name;
 
-    public RegionDTO() {
+    public City() {
     }
 
     public long getId() {
@@ -18,12 +17,12 @@ public class RegionDTO {
         this.id = id;
     }
 
-    public long getIdCountry() {
-        return idCountry;
+    public long getIdRegion() {
+        return idRegion;
     }
 
-    public void setIdCountry(long idCountry) {
-        this.idCountry = idCountry;
+    public void setIdRegion(long idRegion) {
+        this.idRegion = idRegion;
     }
 
     public String getName() {

@@ -6,13 +6,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.User;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsMainUser;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO.MainUser;
 
 import java.util.List;
 
-public class UserDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<MainUser>  {
+public class UserDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<User>  {
+
+    private final String NAME_TABLE_USER = "usertable";
+    private final String KEY_ID = "_id";
+    private final String KEY_NAME = "name";
+    private final String KEY_SURNAME = "surname";
+    private final String KEY_FOTO = "foto";
+
+    private final String CREATE_USER = "create table " + NAME_TABLE_USER +
+            " ( " + KEY_ID +" integer primary key autoincrement, " +
+            KEY_NAME + " text, " +
+            KEY_SURNAME + " text, " +
+            KEY_FOTO + " text " + " );";
+
+    private static final String SELECT_ALL = "SELECT * FROM ";
+    private final String GET_USER_BY_ID = SELECT_ALL + NAME_TABLE_USER + " WHERE " + KEY_ID + " = ?";
+    private final String GET_USER = SELECT_ALL + NAME_TABLE_USER;
+    private final String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE_USER;
 
     private static int dataBaseVerson;
 
@@ -22,59 +38,55 @@ public class UserDataBaseHadler extends SQLiteOpenHelper implements InterfaseDat
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ConstantsMainUser.CREATE_MAIN_USER_APP);
-        db.beginTransaction();
+        db.execSQL(CREATE_USER);
         dataBaseVerson = ConstantsDataBase.DataBaseVersion;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(ConstantsMainUser.DELETE_TABLE);
+        db.execSQL(DELETE_TABLE);
         onCreate(db);
     }
 
     @Override
-    public void create(MainUser mainUser) {
+    public void create(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ConstantsMainUser.KEY_NAME, mainUser.getName());
-        values.put(ConstantsMainUser.KEY_SURNAME, mainUser.getSurName());
-        values.put(ConstantsMainUser.KEY_FOTO, mainUser.getFoto());
-        values.put(ConstantsMainUser.KEY_TOKEN, mainUser.getToken());
-        db.insert(ConstantsMainUser.NAME_TABLE_MAIN_USER, null, values);
+        values.put(KEY_NAME, user.getName());
+        values.put(KEY_SURNAME, user.getSurName());
+        values.put(KEY_FOTO, user.getFoto());
+        db.insert(NAME_TABLE_USER, null, values);
         db.close();
     }
 
     @Override
-    public MainUser getById(int id) {
+    public User getById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(ConstantsMainUser.GET_USER_BY_ID, new String[]{String.valueOf(id)});
-        MainUser mainUser = new MainUser();
+        Cursor cursor = db.rawQuery(GET_USER_BY_ID, new String[]{String.valueOf(id)});
+        User user = new User();
         if(cursor.moveToFirst())
         {
-            int idIndex = cursor.getColumnIndex(ConstantsMainUser.KEY_ID);
-            int nameIndex = cursor.getColumnIndex(ConstantsMainUser.KEY_NAME);
-            int surNameIndex = cursor.getColumnIndex(ConstantsMainUser.KEY_SURNAME);
-            int fotoIndex = cursor.getColumnIndex(ConstantsMainUser.KEY_FOTO);
-            int tokenIndex = cursor.getColumnIndex(ConstantsMainUser.KEY_TOKEN);
-            mainUser.setId(cursor.getInt(idIndex));
-            mainUser.setName(cursor.getString(nameIndex));
-            mainUser.setSurName(cursor.getString(surNameIndex));
-            mainUser.setFoto(cursor.getString(fotoIndex));
-            mainUser.setToken(cursor.getString(tokenIndex));
+            int idIndex = cursor.getColumnIndex(KEY_ID);
+            int nameIndex = cursor.getColumnIndex(KEY_NAME);
+            int surNameIndex = cursor.getColumnIndex(KEY_SURNAME);
+            int fotoIndex = cursor.getColumnIndex(KEY_FOTO);
+            user.setId(cursor.getInt(idIndex));
+            user.setName(cursor.getString(nameIndex));
+            user.setSurName(cursor.getString(surNameIndex));
+            user.setFoto(cursor.getString(fotoIndex));
         }
         cursor.close();
         db.close();
-        return mainUser;
+        return user;
     }
 
     @Override
-    public List<MainUser> getAll() {
+    public List<User> getAll() {
         return null;
     }
 
     @Override
-    public int update(MainUser mainUser) {
+    public int update(User user) {
         return 0;
     }
 

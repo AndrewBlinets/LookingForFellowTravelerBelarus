@@ -6,13 +6,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO.CityDTO;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsCity;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.City;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
 
 import java.util.List;
 
-public class CityDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<CityDTO> {
+public class CityDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<City> {
+
+    private final String NAME_TABLE_CITY = "citytable";
+
+    private final String KEY_ID = "_id";
+    private final String KEY_NAME = "name";
+    private final String KEY_ID_REGION = "idregion";
+
+    private final String CREATE_CITY_TABLE = "create table " +
+            NAME_TABLE_CITY +
+            " ( " + KEY_ID + " integer primary key autoincrement, " +
+            KEY_NAME + " text, " +
+            KEY_ID_REGION + " integer " + " );";
+
+    private final String SELECT_ALL = "SELECT * FROM ";
+    private final String GET_CITY_BY_ID = SELECT_ALL + NAME_TABLE_CITY + " WHERE " + KEY_ID + " = ?";
+    private final String GET_CITY = SELECT_ALL + NAME_TABLE_CITY;
+    private final String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE_CITY;
 
     private static int dataBaseVerson;
 
@@ -22,37 +38,36 @@ public class CityDataBaseHadler extends SQLiteOpenHelper implements InterfaseDat
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ConstantsCity.CREATE_CITY_TABLE);
-        db.beginTransaction();
+        db.execSQL(CREATE_CITY_TABLE);
         dataBaseVerson = ConstantsDataBase.DataBaseVersion;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(ConstantsCity.DELETE_TABLE);
+        db.execSQL(DELETE_TABLE);
         onCreate(db);
     }
 
     @Override
-    public void create(CityDTO city) {
+    public void create(City city) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ConstantsCity.KEY_NAME, city.getName());
-        values.put(ConstantsCity.KEY_ID_REGION, city.getIdRegion());
-        db.insert(ConstantsCity.NAME_TABLE_CITY, null, values);
+        values.put(KEY_NAME, city.getName());
+        values.put(KEY_ID_REGION, city.getIdRegion());
+        db.insert(NAME_TABLE_CITY, null, values);
         db.close();
     }
 
     @Override
-    public CityDTO getById(int id) {
+    public City getById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(ConstantsCity.GET_CITY_BY_ID, new String[]{String.valueOf(id)});
-        CityDTO city = new CityDTO();
+        Cursor cursor = db.rawQuery(GET_CITY_BY_ID, new String[]{String.valueOf(id)});
+        City city = new City();
         if(cursor.moveToFirst())
         {
-            int idIndex = cursor.getColumnIndex(ConstantsCity.KEY_ID);
-            int nameIndex = cursor.getColumnIndex(ConstantsCity.KEY_NAME);
-            int idRegionIndex = cursor.getColumnIndex(ConstantsCity.KEY_ID_REGION);
+            int idIndex = cursor.getColumnIndex(KEY_ID);
+            int nameIndex = cursor.getColumnIndex(KEY_NAME);
+            int idRegionIndex = cursor.getColumnIndex(KEY_ID_REGION);
             city.setId(cursor.getInt(idIndex));
             city.setName(cursor.getString(nameIndex));
             city.setIdRegion(cursor.getInt(idRegionIndex));
@@ -63,12 +78,12 @@ public class CityDataBaseHadler extends SQLiteOpenHelper implements InterfaseDat
     }
 
     @Override
-    public List<CityDTO> getAll() {
+    public List<City> getAll() {
         return null;
     }
 
     @Override
-    public int update(CityDTO cityDTO) {
+    public int update(City city) {
         return 0;
     }
 

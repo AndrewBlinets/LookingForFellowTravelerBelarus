@@ -44,4 +44,7 @@
     <string name="forgotPassword">Забыли пароль?</string>
     <string name="email">Адрес электронной почты</string>
     <string name="password">Пароль</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="aboutuser">О себе</string>
 </resources>

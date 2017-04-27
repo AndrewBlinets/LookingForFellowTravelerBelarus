@@ -6,52 +6,66 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO.CountryDTO;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstansCountry;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.Country;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
 
 import java.util.List;
 
-public class CountryDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<CountryDTO> {
+public class CountryDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<Country> {
 
-    private static int dataBaseVerson;
+    private final String NAME_TABLE_COUNTRY = "countrytable";
+
+    private final String KEY_ID = "_id";
+    private final String KEY_NAME = "name";
+    private static final String KEY_KOD_CURRENCY = "kodcurrency";
+
+    private final String CREATE_COUNTRY_TABLE = "create table " +
+            NAME_TABLE_COUNTRY +
+            " ( " + KEY_ID + " integer primary key autoincrement, " +
+            KEY_NAME + " text, " +
+            KEY_KOD_CURRENCY + " text " + ");";
+
+    private final String SELECT_ALL = "SELECT * FROM ";
+    private final String GET_COUNTRY_BY_ID = SELECT_ALL + NAME_TABLE_COUNTRY + " WHERE " + KEY_ID + " = ?";
+    private final String GET_COUNTRY = SELECT_ALL + NAME_TABLE_COUNTRY;
+    private final String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE_COUNTRY;
+    private int dataBaseVerson;
 
     public CountryDataBaseHadler(Context context) {
         super(context, ConstantsDataBase.DATABASE_NAME, null, ConstantsDataBase.DataBaseVersion);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ConstansCountry.CREATE_COUNTRY_TABLE);
-        db.beginTransaction();
+        db.execSQL(CREATE_COUNTRY_TABLE);
         dataBaseVerson = ConstantsDataBase.DataBaseVersion;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(ConstansCountry.DELETE_TABLE);
+        db.execSQL(DELETE_TABLE);
         onCreate(db);
     }
 
     @Override
-    public void create(CountryDTO country) {
+    public void create(Country country) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ConstansCountry.KEY_NAME, country.getName());
-        values.put(ConstansCountry.KEY_KOD_CURRENCY, country.getKodCurrency());
-        db.insert(ConstansCountry.NAME_TABLE_COUNTRY, null, values);
+        values.put(KEY_NAME, country.getName());
+        values.put(KEY_KOD_CURRENCY, country.getKodCurrency());
+        db.insert(NAME_TABLE_COUNTRY, null, values);
         db.close();
     }
 
     @Override
-    public CountryDTO getById(int id) {
+    public Country getById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(ConstansCountry.GET_COUNTRY_BY_ID, new String[]{String.valueOf(id)});
-        CountryDTO country = new CountryDTO();
+        Cursor cursor = db.rawQuery(GET_COUNTRY_BY_ID, new String[]{String.valueOf(id)});
+        Country country = new Country();
         if(cursor.moveToFirst())
         {
-            int idIndex = cursor.getColumnIndex(ConstansCountry.KEY_ID);
-            int nameIndex = cursor.getColumnIndex(ConstansCountry.KEY_NAME);
-            int kodCurrencyIndex = cursor.getColumnIndex(ConstansCountry.KEY_KOD_CURRENCY);
+            int idIndex = cursor.getColumnIndex(KEY_ID);
+            int nameIndex = cursor.getColumnIndex(KEY_NAME);
+            int kodCurrencyIndex = cursor.getColumnIndex(KEY_KOD_CURRENCY);
             country.setId(cursor.getInt(idIndex));
             country.setName(cursor.getString(nameIndex));
             country.setKodCurrency(cursor.getString(kodCurrencyIndex));
@@ -62,12 +76,12 @@ public class CountryDataBaseHadler extends SQLiteOpenHelper implements Interfase
     }
 
     @Override
-    public List<CountryDTO> getAll() {
+    public List<Country> getAll() {
         return null;
     }
 
     @Override
-    public int update(CountryDTO countryDTO) {
+    public int update(Country country) {
         return 0;
     }
 

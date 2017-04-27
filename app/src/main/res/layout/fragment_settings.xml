@@ -22,7 +22,7 @@
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/iteam_reg_and_settings" />
+        layout="@layout/iteam_regestration_and_change_accaunt" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

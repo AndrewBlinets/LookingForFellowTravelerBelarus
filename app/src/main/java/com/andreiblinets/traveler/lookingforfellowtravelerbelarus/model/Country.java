@@ -1,7 +1,7 @@
-package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO;
+package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
 
-public class CountryDTO {
+public class Country {
 
     private long id;
     private String name;

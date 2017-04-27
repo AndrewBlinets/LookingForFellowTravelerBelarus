@@ -1,29 +1,26 @@
-package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO;
+package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
-public class MainUser {
+public class User {
 
     private int id;
     private String name;
     private String surName;
     private String foto;
-    private String token;
 
-    public MainUser() {
+    public User() {
     }
 
-    public MainUser(int id, String name, String surName, String foto, String token) {
+    public User(int id, String name, String surName, String foto, String token) {
         this.id = id;
         this.name = name;
         this.surName = surName;
         this.foto = foto;
-        this.token = token;
     }
 
-    public MainUser(String name, String surName, String foto, String token) {
+    public User(String name, String surName, String foto, String token) {
         this.name = name;
         this.surName = surName;
         this.foto = foto;
-        this.token = token;
     }
 
     public int getId() {
@@ -56,13 +53,5 @@ public class MainUser {
 
     public void setFoto(String foto) {
         this.foto = foto;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

@@ -1,4 +1,4 @@
-package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.DTO;
+package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
 public class DateUpdateInformation {
 

@@ -9,8 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -21,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="24sp" />
 
         <EditText
@@ -31,25 +29,27 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@string/loginEnter"
-            android:background="@color/av_registration"
-            android:textColor="@color/colorTextButtonLogIn"
             android:paddingTop="12dp"
-            android:textSize="20sp"/>
-
+            android:paddingLeft="56dp"
+            android:paddingRight="56dp">
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/loginEnter"
+                android:background="@color/av_registration"
+                android:textColor="@color/colorTextButtonLogIn"
+                android:textSize="20sp"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/forgotYourPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:clickable="true"
             android:onClick="onClick"
             android:text="@string/forgotPassword"

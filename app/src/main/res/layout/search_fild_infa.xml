@@ -3,48 +3,45 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" android:weightSum="1"
-        android:id="@+id/search_infa"
+    android:id="@+id/search_infa"
               android:background="@color/field_enter">
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/buttonTrade"
-                android:layout_weight="1"/>
-            <TableLayout
-                android:layout_weight="5">
-                <TableRow
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonTrade"
+                    android:layout_weight="5"/>
+                <TableLayout
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <AutoCompleteTextView
-                        android:id="@+id/editTextStart"
+                    <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/field_date_text"
-                        android:textSize="36sp"
-                        android:hint="@string/start"
-                        android:completionHint="@string/start"
-                        android:completionThreshold="1"/>
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <AutoCompleteTextView
-                        android:id="@+id/editTextFinish"
+                        android:layout_height="wrap_content">
+                        <AutoCompleteTextView
+                            android:id="@+id/editTextStart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/field_date_text"
+                            android:textSize="36sp"
+                            android:hint="@string/start"
+                            android:completionThreshold="1"/>
+                    </TableRow>
+                    <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/field_date_text"
-                        android:textSize="36sp"
-                        android:hint="@string/finish"
-                        android:completionThreshold="1"/>
-                </TableRow>
-            </TableLayout>
-            <!-- android:background="@mipmap/ic_swap_calls_black_48dp" -->
-        </TableRow>
-    </TableLayout>
+                        android:layout_height="wrap_content">
+                        <AutoCompleteTextView
+                            android:id="@+id/editTextFinish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/field_date_text"
+                            android:textSize="36sp"
+                            android:hint="@string/finish"
+                            android:completionThreshold="1"/>
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
 </LinearLayout>
