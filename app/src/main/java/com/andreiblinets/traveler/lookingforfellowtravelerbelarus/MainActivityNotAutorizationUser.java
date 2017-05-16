@@ -20,7 +20,11 @@ import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.fragment.Fragm
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.fragment.FragmentSearch;
 
 public class MainActivityNotAutorizationUser extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    NavigationView navigationView;
+
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private Fragment fragment = null;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +33,7 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -62,7 +57,7 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -79,7 +74,7 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment fragment = null;
+
         Class fragmentClass = null;
         switch(item.getItemId())
         {
@@ -96,7 +91,7 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         }
 
@@ -106,11 +101,7 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        Fragment fragment = null;
         Class fragmentClass = null;
-
-
         switch(item.getItemId())
         {
             case R.id.enter_menu_navigation:
@@ -136,11 +127,11 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

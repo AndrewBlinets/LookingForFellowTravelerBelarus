@@ -9,5 +9,11 @@ public class NetWork {
     public static final String GET_LIST_REGION = "/regions";
     public static final String GET_LIST_CITY = "/cities";
 
+    public static final String CHECKING_EMAIL = "/checking/{email}";
+    public static final String CHECKING_PHONE = "/checking/{phone}";
+
     public static final String CHECKING_TOKEN = "/user/token";
+    public static final String REGISTRATION ="/registration";
+    public static final String SEARCH_ROAD = "/road";
+    public static final String CREATE_ROAD = "/read";
 }

@@ -2,18 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content" android:weightSum="1"
-    android:id="@+id/search_infa"
+              android:layout_height="wrap_content"
+              android:weightSum="1"
+              android:id="@+id/search_infa"
               android:background="@color/field_enter">
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <Button
+                <ImageButton
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/buttonTrade"
-                    android:layout_weight="5"/>
+                    android:layout_weight="10"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_cached_white_24dp"/>
                 <TableLayout
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -26,9 +29,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/field_date_text"
-                            android:textSize="36sp"
+                            android:textSize="20sp"
                             android:hint="@string/start"
-                            android:completionThreshold="1"/>
+                            android:completionThreshold="1" />
                     </TableRow>
                     <TableRow
                         android:layout_width="match_parent"
@@ -38,7 +41,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/field_date_text"
-                            android:textSize="36sp"
+                            android:textSize="20sp"
                             android:hint="@string/finish"
                             android:completionThreshold="1"/>
                     </TableRow>

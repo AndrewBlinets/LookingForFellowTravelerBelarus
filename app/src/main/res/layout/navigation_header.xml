@@ -10,23 +10,39 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="bottom">
-
-    <ImageView
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/smile"
-        android:id="@+id/imageView"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView"
+                android:layout_weight="1"
+                android:src="@drawable/ergejluganskij"
+                android:scaleType="fitCenter"/>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                   <TableRow>
+                        <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView1"
+                            android:text="Иванов"
+                            android:textColor="@color/colorWhite"
+                        android:textSize="20sp"/>
+                   </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView"
+                        android:text="Иван"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20sp"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
 </LinearLayout>

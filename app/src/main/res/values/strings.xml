@@ -8,9 +8,10 @@
     <!-- menu_toolbar navigation -->
 
     <string name="exit_mn">Выход</string>
-    <string name="settings_mn">Настройки</string>
+    <string name="settings_mn">Учетная запись</string>
     <string name="search_mn">Поиск</string>
-    <string name="add_mn">Добавить</string>
+    <string name="create_road">Создать маршрут</string>
+    <string name="create_req">Создать заявку</string>
     <string name="my_route_mn">Мои маршруты</string>
     <string name="registration_mn">Зарегистрироваться</string>
     <string name="enter_mn">Войти</string>
@@ -47,4 +48,13 @@
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="aboutuser">О себе</string>
+    <string name="phone">Телефон</string>
+    <string name="create">Создать</string>
+    <string name="additional_information_about_the_route">Дополнительная информация</string>
+    <string name="count_free_place">1</string>
+    <string name="createRoad">Созадть маршрут</string>
+    <string name="createReqest">Созадть заявку</string>
+    <string name="searchRoad">Найти маршрут</string>
+    <string name="searchPopytchikov">Поиск попутчиков</string>
+    <string name="popular">Популярное</string>
 </resources>

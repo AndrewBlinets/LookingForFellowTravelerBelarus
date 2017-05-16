@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.Token;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
@@ -12,51 +11,28 @@ import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.Cons
 import java.util.List;
 
 
-public class TokenDataBaseHadler  extends SQLiteOpenHelper implements InterfaseDataBaseHandler<Token> {
+public class TokenDataBaseHadler  extends BaseClassDataBaseHadler<Token> {
 
-    private final String NAME_TABLE_TOKEN = "tokentable";
-
-    private final String KEY_ID = "_id";
     private final String KEY_TOKEN = "token";
     private final String KEY_ID_USER = "iduser";
 
-    private final String CREATE_TOKEN = "create table " + NAME_TABLE_TOKEN +
-            " ( " + KEY_ID +" integer primary key autoincrement, " +
-            KEY_TOKEN + " text, " +
-            KEY_ID_USER + " integer " + " );";
 
-    private final String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE_TOKEN;
-    private final String SELECT_ALL = "SELECT * FROM ";
-    private final String GET_TOKEN_BY_ID = SELECT_ALL + NAME_TABLE_TOKEN + " WHERE " + KEY_ID + " = ?";
-    private final String GET_TOKEN = SELECT_ALL + NAME_TABLE_TOKEN;
-    // private final String UPDATE_USER_BY_ID = ;
-    // private final String DELETE_USER_BY_ID = ;
-
-    private static int dataBaseVerson;
 
     public TokenDataBaseHadler(Context context) {
-        super(context, ConstantsDataBase.DATABASE_NAME, null, ConstantsDataBase.DataBaseVersion);
+        super(context, ConstantsDataBase.TOKEN);
+        CREATE_TABLE = "add table " + NAME_TABLE +
+                " ( " + KEY_ID +" integer primary key autoincrement, " +
+                KEY_TOKEN + " text, " +
+                KEY_ID_USER + " integer " + " );";
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TOKEN);
-        dataBaseVerson = ConstantsDataBase.DataBaseVersion;
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(DELETE_TABLE);
-        onCreate(db);
-    }
-
-    @Override
-    public void create(Token token) {
+    public void add(Token token) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TOKEN, token.getToken());
         values.put(KEY_ID_USER, token.getIdUser());
-        db.insert(NAME_TABLE_TOKEN, null, values);
+        db.insert(NAME_TABLE, null, values);
         db.close();
     }
 
@@ -65,7 +41,7 @@ public class TokenDataBaseHadler  extends SQLiteOpenHelper implements InterfaseD
         Token token = new Token();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery(GET_TOKEN_BY_ID, new String[]{String.valueOf(id)});
+            Cursor cursor = db.rawQuery(GET_BY_ID, new String[]{String.valueOf(id)});
             if (cursor.moveToFirst()) {
                 int idIndex = cursor.getColumnIndex(KEY_ID);
                 int tokenIndex = cursor.getColumnIndex(KEY_TOKEN);
@@ -94,13 +70,4 @@ public class TokenDataBaseHadler  extends SQLiteOpenHelper implements InterfaseD
         return 0;
     }
 
-    @Override
-    public void deleteById(int id) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }

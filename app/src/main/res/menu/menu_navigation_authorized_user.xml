@@ -6,31 +6,46 @@
             <item android:id="@+id/i_am_driver_menu_navigation"
                 android:title="@string/i_am_driver_mn"
                 android:orderInCategory="1"
+                android:icon="@drawable/ic_directions_car_black_24dp"
                 />
             <item android:id="@+id/i_am_companion_menu_navigation"
                 android:title="@string/i_am_companion_mn"
                 android:orderInCategory="1"
+                android:icon="@drawable/ic_supervisor_account_black_24dp"
                 />
         </menu>
     </item>
-    <item android:id="@+id/add_menu_navigation"
-          android:title="@string/add_mn"
+    <item android:id="@+id/create_road_menu_navigation"
+          android:title="@string/create_road"
           android:orderInCategory="1"
-
-            />
+        android:icon="@drawable/ic_add_circle_outline_black_24dp"
+                 />
+        <item android:id="@+id/create_req_menu_navigation"
+          android:title="@string/create_req"
+          android:orderInCategory="1"
+            android:icon="@drawable/ic_add_circle_outline_black_24dp"
+                 />
+        <item android:id="@+id/popula_menu_navigation"
+          android:title="@string/popular"
+          android:orderInCategory="1"
+            android:icon="@drawable/ic_star_black_24dp"
+                 />
     <item android:id="@+id/search_menu_navigation"
           android:title="@string/search_mn"
           android:orderInCategory="1"
+        android:icon="@drawable/ic_search_black_24dp"
 
             />
     <item android:id="@+id/settings_menu_navigation"
           android:title="@string/settings_mn"
           android:orderInCategory="1"
+        android:icon="@drawable/ic_settings_black_24dp"
 
             />
     <item android:id="@+id/exit_menu_navigation"
         android:title="@string/exit_mn"
         android:orderInCategory="1"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
         />
     </group>
 </menu>

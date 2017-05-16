@@ -13,10 +13,10 @@ import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.R;
 
 public class FragmentSearch extends Fragment {
 
-    private static int LAYOUT = R.layout.fragment_search;
+    private static int LAYOUT = R.layout.fragment_search_road;
     private View view;
 
-    String[] cities = {"Москва", "Самара", "Вологда", "Волгоград", "Саратов", "Воронеж"};
+    String[] cities = {"Минск", "Гродно", "Гомель", "Глубокое", "Горки", "Ганцевичи"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +27,12 @@ public class FragmentSearch extends Fragment {
                 new ArrayAdapter<String>(view.getContext(),R.layout.support_simple_spinner_dropdown_item, cities);
                // new ArrayAdapter<String>(view, R.layout.support_simple_spinner_dropdown_item, cities);
         autoCompleteTextView.setAdapter(adapter);
+        AutoCompleteTextView autoCompleteTextView1 = (AutoCompleteTextView) view.findViewById(R.id.editTextFinish);
+        // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
+        ArrayAdapter<String> adapter1 =
+                new ArrayAdapter<String>(view.getContext(),R.layout.support_simple_spinner_dropdown_item, cities);
+        // new ArrayAdapter<String>(view, R.layout.support_simple_spinner_dropdown_item, cities);
+        autoCompleteTextView1.setAdapter(adapter);
         return view;
     }
 }

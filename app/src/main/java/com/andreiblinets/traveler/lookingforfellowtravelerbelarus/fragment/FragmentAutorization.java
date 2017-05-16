@@ -12,7 +12,7 @@ import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.R;
 
 public class FragmentAutorization extends Fragment {
 
-    private static final int LAYOUT = R.layout.fragment_login;
+    private static final int LAYOUT = R.layout.fragment_autorization;
     private View view;
 
     @Nullable

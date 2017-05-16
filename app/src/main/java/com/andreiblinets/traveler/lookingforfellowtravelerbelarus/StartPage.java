@@ -3,15 +3,16 @@ package com.andreiblinets.traveler.lookingforfellowtravelerbelarus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.UserDataBaseHadler;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.City;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.Country;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.DateUpdateInformation;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.LastUpdate;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.Region;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.CityDataBaseHadler;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.CountryDataBaseHadler;
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.DateUpdateInformationDataBaseHandler;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.LastUpdateDataBaseHandler;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.RegionDataBaseHadler;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.TokenDataBaseHadler;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.User;
@@ -35,42 +36,35 @@ public class StartPage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
-//        DateUpdateInformation obj = new DateUpdateInformation();
-//        obj.setDataTimeUpdateCity("qwe");
-//        obj.setDataTimeUpdateRegion("zxc");
-//        obj.setDataTimeUpdateCountry("asd");
-//        obj.setId(2);
-//        checkingInformationCountry(obj);
         api = TravelerRestAdapter.getApi();
-        Call<DateUpdateInformation> call = api.getLastUpdate();
-        call.enqueue(new Callback<DateUpdateInformation>() {
+        Call<LastUpdate> call = api.getLastUpdate();
+        call.enqueue(new Callback<LastUpdate>() {
             @Override
-            public void onResponse(Call<DateUpdateInformation> call, Response<DateUpdateInformation> response) {
-                DateUpdateInformation result = response.body();
+            public void onResponse(Call<LastUpdate> call, Response<LastUpdate> response) {
+                LastUpdate result = response.body();
                 checkingInformationCountry(result);
             }
 
             @Override
-            public void onFailure(Call<DateUpdateInformation> call, Throwable t) {
-                // Enter mesage about error in enternet and about information not update
-                System.out.println(t.getMessage());
+            public void onFailure(Call<LastUpdate> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Нет доступак сети" +  t.getMessage(), Toast.LENGTH_SHORT).show();
                 flagAboutCheckingToken = false;
                 goToMainLayout(new User());
             }
         });
     }
 
-    private void checkingInformationCountry(final DateUpdateInformation updateInformationWithServer) {
-        DateUpdateInformationDataBaseHandler db = new DateUpdateInformationDataBaseHandler(this);
-        final DateUpdateInformation updateInformationWithDB = db.getById(1);
+    private void checkingInformationCountry(final LastUpdate updateInformationWithServer) {
+        LastUpdateDataBaseHandler db = new LastUpdateDataBaseHandler(this);
+        final LastUpdate updateInformationWithDB = db.getById(1);
         if (updateInformationWithDB.getId() == 0) {
-            updateInformationWithDB.setDataTimeUpdateCountry("");
-            updateInformationWithDB.setDataTimeUpdateRegion("");
-            updateInformationWithDB.setDataTimeUpdateCity("");
-            db.create(updateInformationWithServer);
+            updateInformationWithDB.setLastUpdateCountry("");
+            updateInformationWithDB.setLastUpdateRegion("");
+            updateInformationWithDB.setLastUpdateCountry("");
+            db.add(updateInformationWithServer);
             flagUpdate = false;
         }
-        if(!updateInformationWithDB.getDataTimeUpdateCountry().equals(updateInformationWithServer.getDataTimeUpdateCountry()))
+        if(!updateInformationWithDB.getLastUpdateCountry().equals(updateInformationWithServer.getLastUpdateCountry()))
         {
             Call<List<Country>> call = api.getListCountry();
             call.enqueue(new Callback<List<Country>>() {
@@ -82,7 +76,7 @@ public class StartPage extends Activity {
 
                 @Override
                 public void onFailure(Call<List<Country>> call, Throwable t) {
-                    System.out.println(t.getMessage());
+                    Toast.makeText(getApplicationContext(), "Нет доступак сети" +  t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -91,7 +85,7 @@ public class StartPage extends Activity {
         }
     }
 
-    private void updateCountry(List<Country> list, DateUpdateInformation updateInformationWithServer, DateUpdateInformation updateInformationWithDB) {
+    private void updateCountry(List<Country> list, LastUpdate updateInformationWithServer, LastUpdate updateInformationWithDB) {
         CountryDataBaseHadler db = new CountryDataBaseHadler(this);
         if (flagUpdate) {
             for (Country country : list) {
@@ -101,14 +95,14 @@ public class StartPage extends Activity {
         else
         {
             for (Country country : list) {
-                db.create(country);
+                db.add(country);
             }
         }
         checkingInformationRegion(updateInformationWithServer, updateInformationWithDB);
     }
 
-    private void checkingInformationRegion(final DateUpdateInformation updateInformationWithServer, final DateUpdateInformation updateInformationWithDB) {
-        if (!updateInformationWithDB.getDataTimeUpdateRegion().equals(updateInformationWithServer.getDataTimeUpdateRegion())) {
+    private void checkingInformationRegion(final LastUpdate updateInformationWithServer, final LastUpdate updateInformationWithDB) {
+        if (!updateInformationWithDB.getLastUpdateRegion().equals(updateInformationWithServer.getLastUpdateRegion())) {
             Call<List<Region>> call = api.getListRegion();
             call.enqueue(new Callback<List<Region>>() {
                 @Override
@@ -119,7 +113,7 @@ public class StartPage extends Activity {
 
                 @Override
                 public void onFailure(Call<List<Region>> call, Throwable t) {
-                    System.out.println(t.getMessage());
+                    Toast.makeText(getApplicationContext(), "Нет доступак сети" +  t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -128,7 +122,7 @@ public class StartPage extends Activity {
         }
     }
 
-    private void updateRegion(List<Region> list, DateUpdateInformation updateInformationWithServer, DateUpdateInformation updateInformationWithDB) {
+    private void updateRegion(List<Region> list, LastUpdate updateInformationWithServer, LastUpdate updateInformationWithDB) {
         RegionDataBaseHadler db = new RegionDataBaseHadler(this);
         if (flagUpdate) {
             for (Region region : list) {
@@ -138,14 +132,14 @@ public class StartPage extends Activity {
         else
         {
             for (Region region : list) {
-                db.create(region);
+                db.add(region);
             }
         }
         checkingInformationCity(updateInformationWithServer, updateInformationWithDB);
     }
 
-    private void checkingInformationCity(final DateUpdateInformation updateInformationWithServer, final DateUpdateInformation updateInformationWithDB) {
-        if (!updateInformationWithDB.getDataTimeUpdateCity().equals(updateInformationWithServer.getDataTimeUpdateCity())) {
+    private void checkingInformationCity(final LastUpdate updateInformationWithServer, final LastUpdate updateInformationWithDB) {
+        if (!updateInformationWithDB.getLastUpdateCity().equals(updateInformationWithServer.getLastUpdateCity())) {
             Call<List<City>> call = api.getListCity();
             call.enqueue(new Callback<List<City>>() {
                 @Override
@@ -156,7 +150,7 @@ public class StartPage extends Activity {
 
                 @Override
                 public void onFailure(Call<List<City>> call, Throwable t) {
-                    System.out.println(t.getMessage());
+                    Toast.makeText(getApplicationContext(), "Нет доступак сети" +  t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -166,7 +160,7 @@ public class StartPage extends Activity {
         }
     }
 
-    private void updateCity(List<City> list, DateUpdateInformation updateInformationWithServer, DateUpdateInformation updateInformationWithDB) {
+    private void updateCity(List<City> list, LastUpdate updateInformationWithServer, LastUpdate updateInformationWithDB) {
         CityDataBaseHadler db = new CityDataBaseHadler(this);
         if (flagUpdate) {
             for (City city : list) {
@@ -176,14 +170,14 @@ public class StartPage extends Activity {
         else
         {
             for (City city : list) {
-                db.create(city);
+                db.add(city);
             }
        }
         updateInformationAboutUpdateInBD(updateInformationWithServer);
     }
 
-    private void updateInformationAboutUpdateInBD(DateUpdateInformation updateInformationWithServer) {
-        DateUpdateInformationDataBaseHandler db = new DateUpdateInformationDataBaseHandler(this);
+    private void updateInformationAboutUpdateInBD(LastUpdate updateInformationWithServer) {
+        LastUpdateDataBaseHandler db = new LastUpdateDataBaseHandler(this);
         updateInformationWithServer.setId(1);
         db.update(updateInformationWithServer);
         checkingTokenInDB();
@@ -202,7 +196,7 @@ public class StartPage extends Activity {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    System.out.println(t.getMessage());
+                    Toast.makeText(getApplicationContext(), "Нет доступак сети" +  t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

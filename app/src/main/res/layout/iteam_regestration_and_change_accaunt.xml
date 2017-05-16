@@ -8,35 +8,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
             android:inputType="text"
             android:textSize="24sp" />
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/surnameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/surname"
             android:inputType="text"
             android:textSize="24sp"/>
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/emailEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textSize="24sp" />
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/passwordEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textSize="24sp"/>
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/phoneEdit1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:textSize="24sp"/>
+        <EditText
+            android:id="@+id/aboutUserEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/aboutuser"
@@ -46,6 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/noavatar"
+            android:id="@+id/avatarImage"
+            android:onClick="onClick"
             android:layout_gravity="center"/>
 
     </LinearLayout>
