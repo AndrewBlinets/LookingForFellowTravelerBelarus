@@ -67,6 +67,13 @@ public class FragmntMyRoadIDriver extends Fragment {
             @Override
             public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
                 List<Trip> trips = response.body();
+                Trip trip = new Trip();
+                trip.setIdCityOfDeparture(6);
+                trip.setIdCityOfArrived(11);
+                trip.setTimeOfDeparture("12:00");
+                trip.setDataOfDeparture("26.05.2017");
+                trip.setCountFree(1);
+                List_way.add(trip);
                 if(trips != null){
                     List_way = trips;
                     show();
@@ -85,13 +92,7 @@ public class FragmntMyRoadIDriver extends Fragment {
     }
 
     private void show() {
-        Trip trip = new Trip();
-        trip.setIdCityOfDeparture(6);
-        trip.setIdCityOfArrived(11);
-        trip.setTimeOfDeparture("12:00");
-        trip.setDataOfDeparture("26.05.2017");
-        trip.setCountFree(1);
-        List_way.add(trip);
+
         adapter_save_road = new AdapterMyRoad(getActivity(),List_way);
         listView = (ListView)view.findViewById(R.id.listView_my_road);
 
