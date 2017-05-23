@@ -1,13 +1,22 @@
 package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
 
-public class Country extends BaseClass {
+public class Country {
 
+    private long id;
     private String name;
     private String kodCurrency;
 
     public Country() {
-        super();
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

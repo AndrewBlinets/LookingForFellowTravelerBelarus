@@ -1,26 +1,30 @@
 package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.Country;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.City;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CountryDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<Country> {
+public class CityDataBaseHelperHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<City> {
 
-    private final String SELECT_ALL = "SELECT * FROM ";
+    String NAME_TABLE  = "citytable";
     protected final String KEY_ID = "_id";
-    String NAME_TABLE  = "country";
+    private final String KEY_NAME = "name";
+    private final String KEY_ID_REGION = "idcountry";
+    private final String SELECT_ALL = "SELECT * FROM ";
     String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE;
     String  GET_BY_ID = SELECT_ALL + NAME_TABLE + " WHERE " + KEY_ID + " = ?";
     String GET_ALL = SELECT_ALL + NAME_TABLE;
 
-    public CountryDataBaseHadler(Context context) {
+    public CityDataBaseHelperHadler(Context context) {
         super(context, ConstantsDataBase.DATABASE_NAME, null, ConstantsDataBase.DataBaseVersion);
     }
 
@@ -30,7 +34,7 @@ public class CountryDataBaseHadler extends SQLiteOpenHelper implements Interfase
                 NAME_TABLE +
                 " ( " + KEY_ID + " integer primary key autoincrement, " +
                 KEY_NAME + " text, " +
-                KEY_KOD_CURRENCY + " text " + ");");
+                KEY_ID_REGION + " text" + " );");
     }
 
     @Override
@@ -39,54 +43,61 @@ public class CountryDataBaseHadler extends SQLiteOpenHelper implements Interfase
         onCreate(db);
     }
 
-    private final String KEY_NAME = "name";
-    private final String KEY_KOD_CURRENCY = "kodcurrency";
-
-//    public CountryDataBaseHadler(Context context) {
-//        super(context, ConstantsDataBase.COUNTRY);
-//        CREATE_TABLE = "create table " +
-//                NAME_TABLE +
-//                " ( " + KEY_ID + " integer primary key autoincrement, " +
-//                KEY_NAME + " text, " +
-//                KEY_KOD_CURRENCY + " text " + ");";
-//    }
-
     @Override
-    public void add(Country country) {
+    public void add(City city) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, country.getName());
-        values.put(KEY_KOD_CURRENCY, country.getKodCurrency());
+        values.put(KEY_NAME, city.getName());
+        values.put(KEY_ID_REGION, city.getIdRegion());
         db.insert(NAME_TABLE, null, values);
         db.close();
     }
 
     @Override
-    public Country getById(int id) {
+    public City getById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(GET_BY_ID, new String[]{String.valueOf(id)});
-        Country country = new Country();
+        City city = new City();
         if(cursor.moveToFirst())
         {
             int idIndex = cursor.getColumnIndex(KEY_ID);
             int nameIndex = cursor.getColumnIndex(KEY_NAME);
-            int kodCurrencyIndex = cursor.getColumnIndex(KEY_KOD_CURRENCY);
-            country.setId(cursor.getInt(idIndex));
-            country.setName(cursor.getString(nameIndex));
-            country.setKodCurrency(cursor.getString(kodCurrencyIndex));
+            int idRegionIndex = cursor.getColumnIndex(KEY_ID_REGION);
+            city.setId(cursor.getInt(idIndex));
+            city.setName(cursor.getString(nameIndex));
+            city.setIdRegion(cursor.getInt(idRegionIndex));
         }
         cursor.close();
         db.close();
-        return country;
+        return city;
     }
 
     @Override
-    public List<Country> getAll() {
-        return null;
+    public List<City> getAll() {
+        List<City> cities = new ArrayList<City>();
+        String selectQuery = GET_ALL;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                City city = new City();
+                int idIndex = cursor.getColumnIndex(KEY_ID);
+                int nameIndex = cursor.getColumnIndex(KEY_NAME);
+                int idRegionIndex = cursor.getColumnIndex(KEY_ID_REGION);
+                city.setId(cursor.getInt(idIndex));
+                city.setName(cursor.getString(nameIndex));
+                city.setIdRegion(cursor.getInt(idRegionIndex));
+                cities.add(city);
+            } while (cursor.moveToNext());
+        }
+
+        return cities;
     }
 
     @Override
-    public int update(Country country) {
+    public int update(City city) {
         return 0;
     }
 

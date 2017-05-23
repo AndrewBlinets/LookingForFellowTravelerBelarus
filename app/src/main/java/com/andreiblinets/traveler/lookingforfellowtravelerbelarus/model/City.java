@@ -1,12 +1,26 @@
 package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
-public class City extends BaseClass {
+public class City  {
 
+    private long id;
     private long idRegion;
     private String name;
 
     public City() {
-        super();
+
+    }
+
+    public City( long idRegion, String name) {
+        this.idRegion = idRegion;
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getIdRegion() {

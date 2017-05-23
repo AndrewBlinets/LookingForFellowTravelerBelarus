@@ -4,26 +4,44 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.LastUpdate;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.LastUpdate;
 
 import java.util.List;
 
-public class LastUpdateDataBaseHandler extends BaseClassDataBaseHadler<LastUpdate> {
+public class InformationUpdateDataBase extends SQLiteOpenHelper implements InterfaseDataBaseHandler<LastUpdate> {
+
 
     private final String KEY_UPDATE_COUNTRY = "countryupdate";
     private final String KEY_UPDATE_REGION = "regionupdate";
     private final String KEY_UPDATE_CITY = "cityupdate";
+    protected final String KEY_ID = "_id";
+    String NAME_TABLE  = "informationupdate";
+    private final String SELECT_ALL = "SELECT * FROM ";
+    String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE;
+    String  GET_BY_ID = SELECT_ALL + NAME_TABLE + " WHERE " + KEY_ID + " = ?";
+    String GET_ALL = SELECT_ALL + NAME_TABLE;
 
-    public LastUpdateDataBaseHandler(Context context) {
-        super(context, ConstantsDataBase.LAST_UPDATE);
-        CREATE_TABLE = "add table " +
+    public InformationUpdateDataBase(Context context) {
+        super(context, ConstantsDataBase.DATABASE_NAME, null, ConstantsDataBase.DataBaseVersion);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table " +
                 NAME_TABLE +
                 " ( " + KEY_ID + " integer primary key autoincrement, " +
-                KEY_UPDATE_COUNTRY +  " text, " +
-                KEY_UPDATE_REGION +  " text, " +
-                KEY_UPDATE_CITY +  " text " + " );";
+                KEY_UPDATE_COUNTRY + " text, " +
+                KEY_UPDATE_REGION + " text, " +
+                KEY_UPDATE_CITY + " text" + " );");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(DELETE_TABLE);
+        onCreate(db);
     }
 
     @Override
@@ -71,7 +89,21 @@ public class LastUpdateDataBaseHandler extends BaseClassDataBaseHadler<LastUpdat
 
     @Override
     public int update(LastUpdate lastUpdate) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_UPDATE_CITY,lastUpdate.getLastUpdateCity());
+        values.put(KEY_UPDATE_COUNTRY,lastUpdate.getLastUpdateCountry());
+        values.put(KEY_UPDATE_REGION,lastUpdate.getLastUpdateRegion());
+        return db.update(NAME_TABLE, values, KEY_ID + " = ?", new String[]{String.valueOf(lastUpdate.getId())} );
     }
 
+    @Override
+    public void deleteById(int id) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
 }

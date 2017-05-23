@@ -24,7 +24,7 @@ public class TripDataBaseHadler extends BaseClassDataBaseHadler<Trip> {
 
     public TripDataBaseHadler(Context context) {
         super(context, ConstantsDataBase.TRIP);
-        CREATE_TABLE = "add table " +
+        CREATE_TABLE = "create table " +
                 NAME_TABLE +
                 " ( " + KEY_ID + " integer primary key autoincrement, " +
                 KEY_ID_CITY_OF_DEPARTURE + " integer, " +
@@ -41,11 +41,11 @@ public class TripDataBaseHadler extends BaseClassDataBaseHadler<Trip> {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_COMPENSATION, trip.getCompensation());
-        values.put(KEY_DATAT_IME_OF_DEPARTURE, trip.getDataTimeOfDeparture());
+       // values.put(KEY_DATAT_IME_OF_DEPARTURE, trip.getDataTimeOfDeparture());
         values.put(KEY_DEPARTURE_DEVIATION, trip.getDepartureDeviation());
         values.put(KEY_ID_CITY_OF_ARRIVED, trip.getIdCityOfArrived());
         values.put(KEY_ID_CITY_OF_DEPARTURE, trip.getIdCityOfDeparture());
-        values.put(KEY_PLACE_FREE, trip.getPlaceFree());
+        //values.put(KEY_PLACE_FREE, trip.getPlaceFree());
         values.put(KEY_INFORMATION, trip.getInformation());
         values.put(KEY_TRANSPORT_ID, trip.getTransportId());
         db.insert(NAME_TABLE, null, values);

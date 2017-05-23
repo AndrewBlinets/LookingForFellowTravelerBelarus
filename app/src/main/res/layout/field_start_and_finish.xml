@@ -15,6 +15,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/buttonTrade"
                     android:layout_weight="10"
+                    android:onClick="onClick"
                     android:background="@color/colorPrimary"
                     android:src="@drawable/ic_cached_white_24dp"/>
                 <TableLayout

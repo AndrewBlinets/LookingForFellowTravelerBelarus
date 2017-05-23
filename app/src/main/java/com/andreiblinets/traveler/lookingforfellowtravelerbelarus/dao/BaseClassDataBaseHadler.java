@@ -18,9 +18,9 @@ public class BaseClassDataBaseHadler<T> extends SQLiteOpenHelper implements Inte
     protected String CREATE_TABLE = "";
 
     private final String SELECT_ALL = "SELECT * FROM ";
-    protected final String GET_BY_ID = SELECT_ALL + NAME_TABLE + " WHERE " + KEY_ID + " = ?";
-    protected final String GET_ALL = SELECT_ALL + NAME_TABLE;
-    private final String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE;
+    protected String GET_BY_ID ="";
+    protected String GET_ALL = "";
+    private String DELETE_TABLE = "";
 
     private static int dataBaseVerson;
 
@@ -29,6 +29,9 @@ public class BaseClassDataBaseHadler<T> extends SQLiteOpenHelper implements Inte
         super(context, ConstantsDataBase.DATABASE_NAME, null, ConstantsDataBase.DataBaseVersion);
         NAME_TABLE = nameTable;
         dataBaseVerson = ConstantsDataBase.DataBaseVersion;
+        GET_BY_ID = SELECT_ALL + NAME_TABLE + " WHERE " + KEY_ID + " = ?";
+        GET_ALL = SELECT_ALL + NAME_TABLE;
+        DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE;
     }
 
     @Override

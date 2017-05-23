@@ -29,7 +29,6 @@
             android:layout_gravity="center"
             android:clickable="true"
             android:textAlignment="center"
-            android:text="13:57"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -48,7 +47,6 @@
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:textAlignment="center"
-            android:text="30 апреля"
             android:textSize="32sp"/>
 
     </LinearLayout>
@@ -65,7 +63,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_plus"
+                android:id="@+id/button_minus"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/ic_chevron_left_white_24dp"/>
@@ -83,7 +81,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_minus"
+                android:id="@+id/button_plus"
                 android:layout_weight="1"
                 android:background="@drawable/ic_chevron_right_white_24dp"/>
     </LinearLayout>
@@ -110,7 +108,9 @@
             android:id="@+id/fragment_create_new_way_button_create"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/button_search"
+            android:background="@color/av_registration"
+            android:textColor="@color/colorTextButtonLogIn"
+            android:textSize="20sp"
             android:text="@string/create"
             android:textAlignment="center" />
     </LinearLayout>

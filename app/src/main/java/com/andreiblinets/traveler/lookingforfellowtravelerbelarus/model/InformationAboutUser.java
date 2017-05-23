@@ -1,15 +1,21 @@
 package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
-public class User extends BaseClass {
 
+public class InformationAboutUser {
+    private String token;
     private String name;
-    private String surName;
-    private String foto;
+    private String surname;
     private String phone;
     private String email;
-    private int rating;
+    private long rating;
+    private String foto;
 
-    public User() {
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {
@@ -20,20 +26,12 @@ public class User extends BaseClass {
         this.name = name;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getPhone() {
@@ -52,11 +50,19 @@ public class User extends BaseClass {
         this.email = email;
     }
 
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(long rating) {
         this.rating = rating;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

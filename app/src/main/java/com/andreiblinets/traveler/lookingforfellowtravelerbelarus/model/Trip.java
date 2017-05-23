@@ -1,18 +1,31 @@
 package com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model;
 
-public class Trip extends BaseClass {
+import java.io.Serializable;
 
+public class Trip implements Serializable {
+
+    private long id;
     private long idCityOfDeparture;
     private long idCityOfArrived;
-    private String dataTimeOfDeparture;
+    private String dataOfDeparture;
+    private String timeOfDeparture;
     private int compensation;
     private int transportId;
-    private int placeFree;
+    private int countFree;
     private String information;
     private int departureDeviation;
+    private boolean autoAdd;
 
     public Trip() {
-        super();
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getIdCityOfDeparture() {
@@ -31,12 +44,20 @@ public class Trip extends BaseClass {
         this.idCityOfArrived = idCityOfArrived;
     }
 
-    public String getDataTimeOfDeparture() {
-        return dataTimeOfDeparture;
+    public String getDataOfDeparture() {
+        return dataOfDeparture;
     }
 
-    public void setDataTimeOfDeparture(String dataTimeOfDeparture) {
-        this.dataTimeOfDeparture = dataTimeOfDeparture;
+    public void setDataOfDeparture(String dataOfDeparture) {
+        this.dataOfDeparture = dataOfDeparture;
+    }
+
+    public String getTimeOfDeparture() {
+        return timeOfDeparture;
+    }
+
+    public void setTimeOfDeparture(String timeOfDeparture) {
+        this.timeOfDeparture = timeOfDeparture;
     }
 
     public int getCompensation() {
@@ -55,12 +76,12 @@ public class Trip extends BaseClass {
         this.transportId = transportId;
     }
 
-    public int getPlaceFree() {
-        return placeFree;
+    public int getCountFree() {
+        return countFree;
     }
 
-    public void setPlaceFree(int placeFree) {
-        this.placeFree = placeFree;
+    public void setCountFree(int countFree) {
+        this.countFree = countFree;
     }
 
     public String getInformation() {
@@ -79,50 +100,11 @@ public class Trip extends BaseClass {
         this.departureDeviation = departureDeviation;
     }
 
-    @Override
-    public boolean equals(Object o) {
-
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Trip trip = (Trip) o;
-
-        if (idCityOfDeparture != trip.idCityOfDeparture) return false;
-        if (idCityOfArrived != trip.idCityOfArrived) return false;
-        if (compensation != trip.compensation) return false;
-        if (transportId != trip.transportId) return false;
-        if (placeFree != trip.placeFree) return false;
-        if (departureDeviation != trip.departureDeviation) return false;
-        if (dataTimeOfDeparture != null ? !dataTimeOfDeparture.equals(trip.dataTimeOfDeparture) : trip.dataTimeOfDeparture != null)
-            return false;
-        return information != null ? information.equals(trip.information) : trip.information == null;
-
+    public boolean isAutoAdd() {
+        return autoAdd;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (idCityOfDeparture ^ (idCityOfDeparture >>> 32));
-        result = 31 * result + (int) (idCityOfArrived ^ (idCityOfArrived >>> 32));
-        result = 31 * result + (dataTimeOfDeparture != null ? dataTimeOfDeparture.hashCode() : 0);
-        result = 31 * result + compensation;
-        result = 31 * result + transportId;
-        result = 31 * result + placeFree;
-        result = 31 * result + (information != null ? information.hashCode() : 0);
-        result = 31 * result + departureDeviation;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Trip{" +
-                "idCityOfDeparture=" + idCityOfDeparture +
-                ", idCityOfArrived=" + idCityOfArrived +
-                ", dataTimeOfDeparture='" + dataTimeOfDeparture + '\'' +
-                ", compensation=" + compensation +
-                ", transportId=" + transportId +
-                ", placeFree=" + placeFree +
-                ", information='" + information + '\'' +
-                ", departureDeviation=" + departureDeviation +
-                '}';
+    public void setAutoAdd(boolean autoAdd) {
+        this.autoAdd = autoAdd;
     }
 }

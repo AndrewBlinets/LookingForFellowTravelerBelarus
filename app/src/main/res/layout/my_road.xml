@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Start->Finish"
+        android:textSize="40dp"
+        android:id="@+id/textView_way_iteam_start" android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/textView_way_iteam_finish" android:layout_marginLeft="100dp"
+        android:layout_marginTop="-48dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:text="time"
+        android:textSize="40dp"
+        android:id="@+id/textView_way_iteam_time" android:layout_marginLeft="112dp"
+        android:layout_marginTop="28dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:text="data"
+        android:textSize="28dp"
+        android:id="@+id/textView_way_iteam_data" android:layout_marginLeft="112dp"
+        android:layout_marginTop="-16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99"
+        android:textSize="64dp"
+        android:id="@+id/textView_way_iteam_free_place" android:layout_marginLeft="280dp"
+        android:layout_marginTop="-60dp"/>
+
+    <ImageView
+        android:layout_width="108dp"
+        android:layout_height="108dp"
+        android:id="@+id/imageView_way_iteam" android:layout_marginTop="-120dp" android:layout_weight="0.14"
+        />
+</LinearLayout>

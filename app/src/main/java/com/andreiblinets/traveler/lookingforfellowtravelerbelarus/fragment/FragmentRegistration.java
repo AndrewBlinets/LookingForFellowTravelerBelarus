@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
 
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.MainActivityAutorizationUser;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.MainActivityNotAutorizationUser;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.R;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.FragmentConstants;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.dao.UserDataBaseHadler;
+import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.User;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.UserRegistration;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.network.TravelerAPI;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.network.TravelerRestAdapter;
@@ -34,18 +38,25 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 
-public class FragmentRegistration extends Fragment //implements View.OnClickListener
-                                                 {
+public class FragmentRegistration extends Fragment  implements OnClickListener {
 
     private static int LAYOUT = R.layout.fragment_registration;
     private View view;
+
     private ImageButton imageButton;
     private Button regButton;
-    private static final int REQUEST = 1;
-    private String foto;
-    private TravelerAPI api;
     private EditText editEmail;
-                                                     private EditText editPhone;
+    private EditText editPhone;
+
+    private static final int REQUEST = 1;
+
+    private String foto;
+    private String name;
+    private String surname;
+
+    private TravelerAPI api;
+
+    private String token;
 
     @Nullable
     @Override
@@ -53,23 +64,33 @@ public class FragmentRegistration extends Fragment //implements View.OnClickList
         view = inflater.inflate(LAYOUT,container,false);
         api = TravelerRestAdapter.getApi();
         imageButton = (ImageButton) view.findViewById(R.id.avatarImage);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        imageButton.setOnClickListener(this);
         regButton = (Button) view.findViewById(R.id.registrationButton);
-        regButton.setOnClickListener(new View.OnClickListener() {
+        regButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 registration();
-                // checkingEmail();
             }
         });
         editEmail = (EditText) view.findViewById(R.id.emailEdit);
+       // editEmail.OnFocusChangeListener(new TextWatcher())
         editPhone = (EditText) view.findViewById(R.id.phoneEdit1);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.avatarImage: {
+                openGallery();
+                break;
+            }
+            case R.id.registrationButton: {
+                registration();
+                break;
+            }
+        }
+
     }
 
      private void openGallery() {
@@ -84,14 +105,17 @@ public class FragmentRegistration extends Fragment //implements View.OnClickList
          userRegistration.setAboutUser(((EditText)view.findViewById(R.id.aboutUserEdit)).getText().toString());
          userRegistration.setEmail(((EditText)view.findViewById(R.id.emailEdit)).getText().toString());
          userRegistration.setHashPassword(((EditText)view.findViewById(R.id.passwordEdit)).getText().toString());
-         userRegistration.setName(((EditText)view.findViewById(R.id.nameEdit)).getText().toString());
-         userRegistration.setSurName(((EditText)view.findViewById(R.id.surnameEdit)).getText().toString());
+         name = ((EditText)view.findViewById(R.id.nameEdit)).getText().toString();
+         userRegistration.setName(name);
+         surname = ((EditText)view.findViewById(R.id.surnameEdit)).getText().toString();
+         userRegistration.setSurName(surname);
          userRegistration.setPhone(((EditText)view.findViewById(R.id.phoneEdit1)).getText().toString());
          Call<String> call = api.registration(userRegistration);
          call.enqueue(new Callback<String>() {
              @Override
              public void onResponse(Call<String> call, Response<String> response) {
-                 String token = response.body();
+                 token = response.body();
+                 goToMainActivityAutorizationUser();
              }
 
              @Override
@@ -101,7 +125,23 @@ public class FragmentRegistration extends Fragment //implements View.OnClickList
          });
      }
 
-     private void checkingEmail()
+    private void goToMainActivityAutorizationUser() {
+
+        User user = new User();
+        user.setName(name);
+        user.setSurName(surname);
+        user.setFoto(foto);
+        UserDataBaseHadler db = new UserDataBaseHadler(getContext());
+        db.add(user);
+        Intent intent = new Intent(getActivity(), MainActivityAutorizationUser.class);
+        intent.putExtra(FragmentConstants.USER_FOTO,foto);
+        intent.putExtra(FragmentConstants.USER_NAME,name);
+        intent.putExtra(FragmentConstants.USER_SURNAME,surname);
+        intent.putExtra(FragmentConstants.USER_TOKEN,token);
+        startActivity(intent);
+    }
+
+    private void checkingEmail()
      {
          Call<String> call = api.chekingEmail(editEmail.getText().toString());
          call.enqueue(new Callback<String>() {

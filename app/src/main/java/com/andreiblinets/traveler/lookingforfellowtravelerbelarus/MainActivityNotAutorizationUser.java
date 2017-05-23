@@ -52,7 +52,7 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.inflateMenu(R.menu.menu_navigation_not_authorized_user);
         navigationView.setNavigationItemSelectedListener(this);
-
+        navigationView.inflateHeaderView(R.layout.navigation_header);
     }
 
     @Override
@@ -67,7 +67,6 @@ public class MainActivityNotAutorizationUser extends AppCompatActivity implement
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu_toolbar; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         return true;
     }

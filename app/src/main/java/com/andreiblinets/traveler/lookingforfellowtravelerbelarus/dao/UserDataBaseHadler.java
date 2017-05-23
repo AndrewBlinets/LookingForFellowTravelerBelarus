@@ -4,13 +4,39 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.model.User;
 import com.andreiblinets.traveler.lookingforfellowtravelerbelarus.constants.ConstantsDataBase;
 
 import java.util.List;
 
-public class UserDataBaseHadler extends BaseClassDataBaseHadler<User> {
+public class UserDataBaseHadler extends SQLiteOpenHelper implements InterfaseDataBaseHandler<User> {
+
+    private final String SELECT_ALL = "SELECT * FROM ";
+    protected final String KEY_ID = "_id";
+    String NAME_TABLE  = "usertable";
+    String DELETE_TABLE = "DROP TABLE IF EXISTS " + NAME_TABLE;
+    String  GET_BY_ID = SELECT_ALL + NAME_TABLE + " WHERE " + KEY_ID + " = ?";
+    String GET_ALL = SELECT_ALL + NAME_TABLE;
+
+    public UserDataBaseHadler(Context context) {
+        super(context, ConstantsDataBase.DATABASE_NAME, null, ConstantsDataBase.DataBaseVersion);
+    }
+
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table " + NAME_TABLE +
+                " ( " + KEY_ID +" integer primary key autoincrement, " +
+                KEY_NAME + " text, " +
+                KEY_SURNAME + " text, " +
+                KEY_FOTO + " text " + " );");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(DELETE_TABLE);
+        onCreate(db);
+    }
 
     private final String KEY_NAME = "name";
     private final String KEY_SURNAME = "surname";
@@ -21,14 +47,10 @@ public class UserDataBaseHadler extends BaseClassDataBaseHadler<User> {
     private final String KEY_RATING = "rating";
     private final String KEY_DATA_REGISTRATION = "dataRegistration";
 
-    public UserDataBaseHadler(Context context) {
-        super(context, ConstantsDataBase.USER);
-        CREATE_TABLE = "add table " + NAME_TABLE +
-                " ( " + KEY_ID +" integer primary key autoincrement, " +
-                KEY_NAME + " text, " +
-                KEY_SURNAME + " text, " +
-                KEY_FOTO + " text " + " );";
-    }
+//    public UserDataBaseHadler(Context context) {
+//        super(context, ConstantsDataBase.USER);
+//        CREATE_TABLE = ;
+//    }
 
     @Override
     public void add(User user) {
@@ -70,5 +92,15 @@ public class UserDataBaseHadler extends BaseClassDataBaseHadler<User> {
     @Override
     public int update(User user) {
         return 0;
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }
